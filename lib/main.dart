@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_smartclass/mainNavigation.dart';
+import 'package:flutter_smartclass/page/accessibility/room/mainAc.dart';
+import 'package:flutter_smartclass/page/login/loginPage.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
@@ -21,7 +23,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: Color.fromRGBO(51, 51, 51, 1),
         ),
       ),
-      home: const NavigationPage(),
+      home: const LoginPage(),
     );
   }
 }

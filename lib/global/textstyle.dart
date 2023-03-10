@@ -23,6 +23,7 @@ TextStyle bold20White() {
   return GoogleFonts.inter(
       color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold);
 }
+
 TextStyle bold20Highlight() {
   return GoogleFonts.inter(
       color: highlight, fontSize: 20, fontWeight: FontWeight.bold);
@@ -37,19 +38,32 @@ TextStyle med12Sec() {
   return GoogleFonts.inter(
       color: Colors.white, fontSize: 12, fontWeight: FontWeight.w300);
 }
+
 TextStyle med14Sec() {
   return GoogleFonts.inter(
       color: Colors.white, fontSize: 14, fontWeight: FontWeight.w400);
 }
+
 TextStyle med14prim50() {
   return GoogleFonts.inter(
       color: primary50, fontSize: 14, fontWeight: FontWeight.w500);
 }
+
+TextStyle med12prim50() {
+  return GoogleFonts.inter(
+      color: primary50, fontSize: 12, fontWeight: FontWeight.w500);
+}
+
 TextStyle bold20Prim() {
   return GoogleFonts.inter(
       color: primary, fontSize: 20, fontWeight: FontWeight.bold);
 }
+
 TextStyle bold16Prim() {
   return GoogleFonts.inter(
       color: primary, fontSize: 16, fontWeight: FontWeight.bold);
+}
+TextStyle med16Prim() {
+  return GoogleFonts.inter(
+      color: primary, fontSize: 16, fontWeight: FontWeight.normal);
 }

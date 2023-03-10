@@ -32,7 +32,7 @@ class _RoomPageState extends State<RoomPage> {
       status: 'unknown',
       nameDevice: 'unknown',
       onTap: () {},
-      leadingButton: Icon(
+      leadingButton: const Icon(
         Ionicons.chevron_forward,
         size: 24.0,
       ),
@@ -43,11 +43,11 @@ class _RoomPageState extends State<RoomPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Room 1',
           style: TextStyle(color: Colors.black),
         ),
-        leading: BackButton(color: Colors.black),
+        leading: const BackButton(color: Colors.black),
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,

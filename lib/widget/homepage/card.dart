@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types
+// ignore_for_file: camel_case_types, unnecessary_string_interpolations
 
 import 'package:flutter/material.dart';
 import 'package:flutter_smartclass/global/color.dart';
@@ -102,23 +102,29 @@ class HeaderCard extends StatelessWidget {
   }
 }
 
-class cardLamp extends StatefulWidget {
-  const cardLamp({
-    Key? key,
+class cardDeviceBoard extends StatefulWidget {
+  cardDeviceBoard({
+    super.key,
     required this.width,
-  }) : super(key: key);
+    required this.deviceType,
+    required this.deviceValue,
+    required this.varType,
+    required this.iconData,
+  });
 
-  final double width;
+  IconData iconData;
+  bool varType;
+  String deviceType;
+  String deviceValue;
+  double width;
 
   @override
-  State<cardLamp> createState() => _cardLampState();
+  State<cardDeviceBoard> createState() => _cardDeviceBoardState();
 }
 
-class _cardLampState extends State<cardLamp> {
+class _cardDeviceBoardState extends State<cardDeviceBoard> {
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
@@ -126,12 +132,12 @@ class _cardLampState extends State<cardLamp> {
       elevation: 10,
       child: AnimatedContainer(
         decoration: BoxDecoration(
-            color: lamp ? primary : secondary,
+            color: widget.varType ? primary : secondary,
             borderRadius: BorderRadius.all(Radius.circular(20))),
         duration: const Duration(milliseconds: 400),
         child: SizedBox(
-          height: width / 2.35,
-          width: width / 2.35,
+          height: widget.width / 2.35,
+          width: widget.width / 2.35,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16),
             child: Column(
@@ -143,21 +149,24 @@ class _cardLampState extends State<cardLamp> {
                     children: [
                       CircleAvatar(
                         radius: 23,
-                        backgroundColor: lamp ? Colors.white : primary,
+                        backgroundColor:
+                            widget.varType ? Colors.white : primary,
                         child: Icon(
-                          Ionicons.bulb,
-                          color: lamp ? highlight : Colors.white,
+                          widget.iconData,
+                          color: widget.varType ? highlight : Colors.white,
                         ),
                       ),
                       const SizedBox(
                         height: 10,
                       ),
-                      Text('Smart Lamp',
-                          style: lamp ? bold16Highlight() : bold16Prim()),
+                      Text('${widget.deviceType}',
+                          style: widget.varType
+                              ? bold16Highlight()
+                              : bold16Prim()),
                       Text(
-                        "4 Lamps",
+                        "${widget.deviceValue}",
                         style: GoogleFonts.inter(
-                            color: lamp ? Colors.white : primary,
+                            color: widget.varType ? Colors.white : primary,
                             fontSize: 12,
                             fontWeight: FontWeight.w400),
                       ),
@@ -171,12 +180,12 @@ class _cardLampState extends State<cardLamp> {
                         toggleColor: secondary,
                         activeColor: Colors.white,
                         inactiveColor: Colors.white,
-                        width: width / 7.5,
-                        height: width * 0.08,
-                        value: lamp,
+                        width: widget.width / 7.5,
+                        height: widget.width * 0.08,
+                        value: widget.varType,
                         onToggle: (value) {
                           setState(() {
-                            lamp = value;
+                            widget.varType = value;
                           });
                         },
                       )
@@ -190,8 +199,8 @@ class _cardLampState extends State<cardLamp> {
   }
 }
 
-class cardAc extends StatefulWidget {
-  const cardAc({
+class allCard extends StatefulWidget {
+  const allCard({
     Key? key,
     required this.width,
   }) : super(key: key);
@@ -199,435 +208,149 @@ class cardAc extends StatefulWidget {
   final double width;
 
   @override
-  State<cardAc> createState() => _cardAcState();
+  State<allCard> createState() => _allCardState();
 }
 
-class _cardAcState extends State<cardAc> {
+class _allCardState extends State<allCard> {
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
-      elevation: 10,
-      child: AnimatedContainer(
-        decoration: BoxDecoration(
-            color: ac ? primary : secondary,
-            borderRadius: BorderRadius.all(Radius.circular(20))),
-        duration: const Duration(milliseconds: 400),
-        child: SizedBox(
-          height: width / 2.35,
-          width: width / 2.35,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16),
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CircleAvatar(
-                        radius: 23,
-                        backgroundColor: ac ? Colors.white : primary,
-                        child: Icon(
-                          Ionicons.snow,
-                          color: ac ? highlight : Colors.white,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text('Smart Ac',
-                          style: ac ? bold16Highlight() : bold16Prim()),
-                      Text(
-                        "4 Devices",
-                        style: GoogleFonts.inter(
-                            color: ac ? Colors.white : primary,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      FlutterSwitch(
-                        activeToggleColor: highlight,
-                        toggleColor: secondary,
-                        activeColor: Colors.white,
-                        inactiveColor: Colors.white,
-                        width: width / 7.5,
-                        height: width * 0.08,
-                        value: ac,
-                        onToggle: (value) {
-                          setState(() {
-                            ac = value;
-                            ac = value;
-                          });
-                        },
-                      )
-                    ],
-                  )
-                ]),
-          ),
+    return Column(children: [
+      Container(
+        margin: EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 15,
+            ),
+            Row(
+              children: [
+                Text("Devices", style: bold20Prim()),
+              ],
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              InkWell(
+                  onTap: () {
+                    setState(() {
+                      lamp = !lamp;
+                    });
+                  },
+                  child: cardDeviceBoard(
+                    deviceType: "Smart Lamp",
+                    deviceValue: "4 Devices",
+                    width: widget.width,
+                    varType: lamp,
+                    iconData: Ionicons.bulb,
+                  )),
+              InkWell(
+                  onTap: () {
+                    setState(() {
+                      ac = !ac;
+                    });
+                  },
+                  child: cardDeviceBoard(
+                    deviceType: "Smart AC",
+                    deviceValue: "4 Devices",
+                    width: widget.width,
+                    varType: ac,
+                    iconData: Ionicons.snow,
+                  )),
+            ]),
+          ],
         ),
       ),
-    );
-  }
-}
-
-class cardCurtain extends StatefulWidget {
-  const cardCurtain({
-    Key? key,
-    required this.width,
-  }) : super(key: key);
-
-  final double width;
-
-  @override
-  State<cardCurtain> createState() => _cardCurtainState();
-}
-
-class _cardCurtainState extends State<cardCurtain> {
-  @override
-  Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
-      elevation: 10,
-      child: AnimatedContainer(
-        decoration: BoxDecoration(
-            color: curtain ? primary : secondary,
-            borderRadius: BorderRadius.all(Radius.circular(20))),
-        duration: const Duration(milliseconds: 400),
-        child: SizedBox(
-          height: width / 2.35,
-          width: width / 2.35,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16),
+      Expanded(
+          flex: 2,
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 16),
             child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 15,
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CircleAvatar(
-                        radius: 23,
-                        backgroundColor: curtain ? Colors.white : primary,
-                        child: Icon(
-                          Icons.curtains_closed_rounded,
-                          color: curtain ? highlight : Colors.white,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text('Smart Curtain',
-                          style: curtain ? bold16Highlight() : bold16Prim()),
-                      Text(
-                        "4 Devices",
-                        style: GoogleFonts.inter(
-                            color: curtain ? Colors.white : primary,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      FlutterSwitch(
-                        activeToggleColor: highlight,
-                        toggleColor: secondary,
-                        activeColor: Colors.white,
-                        inactiveColor: Colors.white,
-                        width: width / 7.5,
-                        height: width * 0.08,
-                        value: curtain,
-                        onToggle: (value) {
-                          setState(() {
-                            curtain = value;
-                            curtain = value;
-                          });
-                        },
-                      )
-                    ],
-                  )
-                ]),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class cardSwitch extends StatefulWidget {
-  const cardSwitch({
-    Key? key,
-    required this.width,
-  }) : super(key: key);
-
-  final double width;
-
-  @override
-  State<cardSwitch> createState() => _cardSwitchState();
-}
-
-class _cardSwitchState extends State<cardSwitch> {
-  @override
-  Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
-      elevation: 10,
-      child: AnimatedContainer(
-        decoration: BoxDecoration(
-            color: switchs ? primary : secondary,
-            borderRadius: BorderRadius.all(Radius.circular(20))),
-        duration: const Duration(milliseconds: 400),
-        child: SizedBox(
-          height: width / 2.35,
-          width: width / 2.35,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16),
+                      InkWell(
+                          onTap: () {
+                            setState(() {
+                              curtain = !curtain;
+                            });
+                          },
+                          child: cardDeviceBoard(
+                            deviceType: "Smart Curtain",
+                            deviceValue: "2 Devices",
+                            width: widget.width,
+                            varType: curtain,
+                            iconData: Icons.curtains_closed_rounded,
+                          )),
+                      InkWell(
+                          onTap: () {
+                            setState(() {
+                              switchs = !switchs;
+                            });
+                          },
+                          child: cardDeviceBoard(
+                            deviceType: "Smart Switchs",
+                            deviceValue: "4 Devices",
+                            width: widget.width,
+                            varType: switchs,
+                            iconData: Ionicons.toggle,
+                          )),
+                    ]),
+              ],
+            ),
+          )),
+      Expanded(
+          flex: 2,
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 16),
             child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 15,
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CircleAvatar(
-                        radius: 23,
-                        backgroundColor: switchs ? Colors.white : primary,
-                        child: Icon(
-                          Ionicons.toggle,
-                          color: switchs ? highlight : Colors.white,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text('Smart Switch',
-                          style: switchs ? bold16Highlight() : bold16Prim()),
-                      Text(
-                        "4 Devices",
-                        style: GoogleFonts.inter(
-                            color: switchs ? Colors.white : primary,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      FlutterSwitch(
-                        activeToggleColor: highlight,
-                        toggleColor: secondary,
-                        activeColor: Colors.white,
-                        inactiveColor: Colors.white,
-                        width: width / 7.5,
-                        height: width * 0.08,
-                        value: switchs,
-                        onToggle: (value) {
-                          setState(() {
-                            switchs = value;
-                          });
-                        },
-                      )
-                    ],
-                  )
-                ]),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class cardBoard extends StatefulWidget {
-  const cardBoard({
-    Key? key,
-    required this.width,
-  }) : super(key: key);
-
-  final double width;
-
-  @override
-  State<cardBoard> createState() => _cardBoardState();
-}
-
-class _cardBoardState extends State<cardBoard> {
-  @override
-  Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
-      elevation: 10,
-      child: AnimatedContainer(
-        decoration: BoxDecoration(
-            color: board ? primary : secondary,
-            borderRadius: BorderRadius.all(Radius.circular(20))),
-        duration: const Duration(milliseconds: 400),
-        child: SizedBox(
-          height: width / 2.35,
-          width: width / 2.35,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16),
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CircleAvatar(
-                        radius: 23,
-                        backgroundColor: board ? Colors.white : primary,
-                        child: Icon(
-                          Ionicons.tv,
-                          color: board ? highlight : Colors.white,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text('Smart Board',
-                          style: board ? bold16Highlight() : bold16Prim()),
-                      Text(
-                        "1 Devices",
-                        style: GoogleFonts.inter(
-                            color: board ? Colors.white : primary,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      FlutterSwitch(
-                        activeToggleColor: highlight,
-                        toggleColor: secondary,
-                        activeColor: Colors.white,
-                        inactiveColor: Colors.white,
-                        width: width / 7.5,
-                        height: width * 0.08,
-                        value: board,
-                        onToggle: (value) {
-                          setState(() {
-                            board = value;
-                          });
-                        },
-                      )
-                    ],
-                  )
-                ]),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class cardAudio extends StatefulWidget {
-  const cardAudio({
-    Key? key,
-    required this.width,
-  }) : super(key: key);
-
-  final double width;
-
-  @override
-  State<cardAudio> createState() => _cardAudioState();
-}
-
-class _cardAudioState extends State<cardAudio> {
-  @override
-  Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
-      elevation: 10,
-      child: AnimatedContainer(
-        decoration: BoxDecoration(
-            color: audio ? primary : secondary,
-            borderRadius: BorderRadius.all(Radius.circular(20))),
-        duration: const Duration(milliseconds: 400),
-        child: SizedBox(
-          height: width / 2.35,
-          width: width / 2.35,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16),
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CircleAvatar(
-                        radius: 23,
-                        backgroundColor: audio ? Colors.white : primary,
-                        child: Icon(
-                          Ionicons.musical_notes,
-                          color: audio ? highlight : Colors.white,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text('Smart Audio',
-                          style: audio ? bold16Highlight() : bold16Prim()),
-                      Text(
-                        "4 Devices",
-                        style: GoogleFonts.inter(
-                            color: audio ? Colors.white : primary,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      FlutterSwitch(
-                        activeToggleColor: highlight,
-                        toggleColor: secondary,
-                        activeColor: Colors.white,
-                        inactiveColor: Colors.white,
-                        width: width / 7.5,
-                        height: width * 0.08,
-                        value: audio,
-                        onToggle: (value) {
-                          setState(() {
-                            audio = value;
-                          });
-                        },
-                      )
-                    ],
-                  )
-                ]),
-          ),
-        ),
-      ),
-    );
+                      InkWell(
+                          onTap: () {
+                            setState(() {
+                              board = !board;
+                            });
+                          },
+                          child: cardDeviceBoard(
+                            deviceType: "Smart Audio",
+                            deviceValue: "2 Devices",
+                            width: widget.width,
+                            varType: audio,
+                            iconData: Ionicons.musical_notes,
+                          )),
+                      InkWell(
+                          onTap: () {
+                            setState(() {
+                              audio = !audio;
+                            });
+                          },
+                          child: cardDeviceBoard(
+                            deviceType: "Smart Board",
+                            deviceValue: "1 Devices",
+                            width: widget.width,
+                            varType: board,
+                            iconData: Ionicons.tv,
+                          )),
+                    ]),
+              ],
+            ),
+          )),
+      SizedBox(
+        height: 50,
+      )
+    ]);
   }
 }
