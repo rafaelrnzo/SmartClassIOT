@@ -14,7 +14,10 @@ import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  var temp;
+  var weather;
+  var icon;
+  HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -35,7 +38,15 @@ class _HomePageState extends State<HomePage> {
             child: Container(
               color: Colors.white,
               child: Column(children: <Widget>[
-                Expanded(flex: 2, child: HeaderCard(width: width)),
+                Expanded(
+                  flex: 2,
+                  child: HeaderCard(
+                    width: width,
+                    icon: '${widget.icon}',
+                    temp: '${widget.temp}',
+                    weather: '${widget.weather}',
+                  ),
+                ),
                 Expanded(flex: 7, child: allCard(width: width)),
               ]),
             ),

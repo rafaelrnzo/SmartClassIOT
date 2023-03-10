@@ -18,9 +18,9 @@ class NavigationPage extends StatefulWidget {
 class _NavigationPageState extends State<NavigationPage> {
   int currentIndex = 0;
   final screens = [
-    const HomePage(),
+    HomePage(),
     const AccessPage(),
-    const HomePage(),
+    HomePage(),
     const AccessPage(),
   ];
 
@@ -59,19 +59,22 @@ class floatingButton extends StatelessWidget {
     return SizedBox(
       width: 50,
       height: 50,
-        child: FloatingActionButton(
-          backgroundColor: highlight,
-          foregroundColor: secondary,
-          mini: true,
-          onPressed: () {
-            Navigator.push(
+      child: FloatingActionButton(
+        backgroundColor: highlight,
+        foregroundColor: secondary,
+        mini: true,
+        onPressed: () {
+          Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => AddDevicePage()),
-            );
-          },
-          child: const Icon(Icons.add,size: 30,),
+          );
+        },
+        child: const Icon(
+          Icons.add,
+          size: 30,
         ),
-      );
+      ),
+    );
   }
 }
 
