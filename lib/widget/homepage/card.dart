@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_smartclass/global/color.dart';
 import 'package:flutter_smartclass/global/textstyle.dart';
 import 'package:flutter_smartclass/global/var/bool.dart';
+import 'package:flutter_smartclass/widget/shimmerin.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -32,6 +33,7 @@ class _HeaderCardState extends State<HeaderCard> {
   var temp;
   var weather;
   var icon;
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -70,6 +72,7 @@ class _HeaderCardState extends State<HeaderCard> {
       temp = result['main']['temp'];
       weather = result['weather'][0]['main'];
       icon = result['weather'][0]['icon'];
+      isLoading = true;
     });
   }
 
@@ -78,91 +81,99 @@ class _HeaderCardState extends State<HeaderCard> {
     return Container(
       width: widget.width,
       margin: const EdgeInsets.symmetric(horizontal: 16),
-      child: Card(
-        elevation: 20,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        color: primary,
-        child: Container(
-          padding: const EdgeInsets.all(18.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+      child: isLoading
+          ? Card(
+              elevation: 20,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              color: primary,
+              child: Container(
+                  padding: const EdgeInsets.all(18.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      ShaderMask(
-                          blendMode: BlendMode.srcIn,
-                          shaderCallback: (Rect bounds) {
-                            return LinearColor().createShader(bounds);
-                          },
-                          child: Column(
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ShaderMask(
+                                      blendMode: BlendMode.srcIn,
+                                      shaderCallback: (Rect bounds) {
+                                        return LinearColor()
+                                            .createShader(bounds);
+                                      },
+                                      child: Column(
+                                        children: [
+                                          if (temp != null)
+                                            Text(
+                                                '${temp?.toStringAsFixed(0) ?? ''}\u00B0C',
+                                                style: bold24White()),
+                                        ],
+                                      )),
+                                  const SizedBox(height: 8),
+                                  if (weather != null)
+                                    Text(weather?.toString() ?? '',
+                                        style: bold16White()),
+                                  const SizedBox(height: 3),
+                                  Text(
+                                    DateFormat('dd MMMM yyyy')
+                                        .format(DateTime.now()),
+                                    style: med12Sec(),
+                                  ),
+                                ]),
+                            if (icon != null)
+                              Image.network(
+                                "http://openweathermap.org/img/wn/$icon@2x.png",
+                                fit: BoxFit.contain,
+                                width: 100,
+                                height: 100,
+                              ),
+                          ]),
+                      const Divider(
+                        thickness: 1,
+                        color: Colors.white,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Column(
                             children: [
-                              if (temp != null)
-                                Text('${temp?.toStringAsFixed(0) ?? ''}\u00B0C',
-                                    style: bold24White()),
+                              Text(
+                                'Indor Temp',
+                                style: med14Sec(),
+                              ),
+                              const SizedBox(height: 3),
+                              Text(
+                                '20°C',
+                                style: bold16White(),
+                              )
                             ],
-                          )),
-                      const SizedBox(height: 8),
-                      if (weather != null)
-                        Text(weather?.toString() ?? '', style: bold16White()),
-                      const SizedBox(height: 3),
-                      Text(
-                        DateFormat('dd MMMM yyyy').format(DateTime.now()),
-                        style: med12Sec(),
+                          ),
+                          Column(
+                            children: [
+                              Text(
+                                'Indor Temp',
+                                style: med14Sec(),
+                              ),
+                              const SizedBox(height: 3),
+                              Text(
+                                '10%',
+                                style: bold16White(),
+                              )
+                            ],
+                          ),
+                        ],
                       ),
-                    ]),
-                if (icon != null)
-                  Image.network(
-                    "http://openweathermap.org/img/wn/$icon@2x.png",
-                    fit: BoxFit.contain,
-                    width: 100,
-                    height: 100,
-                  ),
-              ]),
-              const Divider(
-                thickness: 1,
-                color: Colors.white,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Column(
-                    children: [
-                      Text(
-                        'Indor Temp',
-                        style: med14Sec(),
-                      ),
-                      const SizedBox(height: 3),
-                      Text(
-                        '20°C',
-                        style: bold16White(),
-                      )
                     ],
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        'Indor Temp',
-                        style: med14Sec(),
-                      ),
-                      const SizedBox(height: 3),
-                      Text(
-                        '10%',
-                        style: bold16White(),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
+                  )),
+            )
+          : const DegreeShimmer(),
     );
   }
 }
@@ -198,7 +209,7 @@ class _cardDeviceBoardState extends State<cardDeviceBoard> {
       child: AnimatedContainer(
         decoration: BoxDecoration(
             color: widget.varType ? primary : secondary,
-            borderRadius: BorderRadius.all(Radius.circular(20))),
+            borderRadius: const BorderRadius.all(Radius.circular(20))),
         duration: const Duration(milliseconds: 400),
         child: SizedBox(
           height: widget.width / 2.35,
@@ -277,15 +288,33 @@ class allCard extends StatefulWidget {
 }
 
 class _allCardState extends State<allCard> {
+  late List feature = [];
+  bool isLoading = false;
+
+  void initState() {
+    fetchApiFeature();
+    super.initState();
+  }
+
+  void fetchApiFeature() async {
+    String apiUrl = 'http://smartlearning.solusi-rnd.tech/api/data-features';
+    http.Response response = await http.get(Uri.parse(apiUrl));
+    var result = jsonDecode(response.body);
+    setState(() {
+      isLoading = true;
+      feature = jsonDecode(response.body);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(children: [
       Container(
-        margin: EdgeInsets.symmetric(horizontal: 16),
+        margin: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Row(
@@ -293,7 +322,7 @@ class _allCardState extends State<allCard> {
                 Text("Devices", style: bold20Prim()),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -330,11 +359,11 @@ class _allCardState extends State<allCard> {
       Expanded(
           flex: 2,
           child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 16),
+            margin: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Row(
@@ -373,11 +402,11 @@ class _allCardState extends State<allCard> {
       Expanded(
           flex: 2,
           child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 16),
+            margin: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Row(
@@ -386,7 +415,7 @@ class _allCardState extends State<allCard> {
                       InkWell(
                           onTap: () {
                             setState(() {
-                              board = !board;
+                              audio = !audio;
                             });
                           },
                           child: cardDeviceBoard(
@@ -399,7 +428,7 @@ class _allCardState extends State<allCard> {
                       InkWell(
                           onTap: () {
                             setState(() {
-                              audio = !audio;
+                              board = !board;
                             });
                           },
                           child: cardDeviceBoard(
@@ -413,7 +442,7 @@ class _allCardState extends State<allCard> {
               ],
             ),
           )),
-      SizedBox(
+      const SizedBox(
         height: 50,
       )
     ]);

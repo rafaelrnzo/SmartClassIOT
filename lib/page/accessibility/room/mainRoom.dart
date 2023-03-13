@@ -6,6 +6,7 @@ import 'package:flutter_smartclass/page/accessibility/room/audioPage.dart';
 import 'package:flutter_smartclass/page/accessibility/room/mainAc.dart';
 import 'package:flutter_smartclass/page/home/mainHome.dart';
 import 'package:flutter_smartclass/widget/roompage/widgetroom.dart';
+import 'package:flutter_smartclass/widget/widgetAppbar.dart';
 import 'package:ionicons/ionicons.dart';
 
 class RoomPage extends StatefulWidget {
@@ -36,7 +37,7 @@ class _RoomPageState extends State<RoomPage> {
       status: 'unknown',
       nameDevice: 'unknown',
       onTap: () {},
-      leadingButton: Icon(
+      leadingButton: const Icon(
         Ionicons.chevron_forward,
         size: 24.0,
       ),
@@ -96,16 +97,7 @@ class _RoomPageState extends State<RoomPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Room 1',
-          style: TextStyle(color: Colors.black),
-        ),
-        leading: BackButton(color: Colors.black),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
+      appBar: roomAppbar(),
       body: Column(
         children: [
           Divider(

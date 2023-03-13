@@ -64,13 +64,14 @@ AppBar accesAppbar() {
 
 AppBar roomAppbar() {
   return AppBar(
-    leading: BackButton(color: primary),
+    leading: const BackButton(color: primary),
     toolbarHeight: 80,
     backgroundColor: Colors.transparent,
     elevation: 0,
+    centerTitle: true,
     title: Text(
-        'Accesibility',
-        style: bold16Prim()
+        'Room 1',
+        style: bold20Prim()
       ),
     
   );

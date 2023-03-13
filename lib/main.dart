@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_smartclass/mainNavigation.dart';
-import 'package:flutter_smartclass/page/accessibility/room/mainAc.dart';
 import 'package:flutter_smartclass/page/login/loginPage.dart';
 import 'package:google_fonts/google_fonts.dart';
 

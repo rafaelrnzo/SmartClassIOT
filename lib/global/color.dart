@@ -12,14 +12,14 @@ const Color secondary60 = Color.fromRGBO(232, 232, 232, 0.6);
 
 LinearGradient LinearColor() {
   return LinearGradient(
-        colors: [highlight, highlight2],
+        colors: const [highlight, highlight2],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       );
 }
 LinearGradient nullb() {
   return LinearGradient(
-        colors: [primary, primary],
+        colors: const [primary, primary],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       );
