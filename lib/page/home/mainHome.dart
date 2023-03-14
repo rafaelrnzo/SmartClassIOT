@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: bgWhite,
       appBar: homeAppbar(context),
       body: CustomScrollView(
         slivers: [
@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
               color: Colors.white,
               child: Column(children: <Widget>[
                 Expanded(
-                  flex: 2,
+                  flex: 1,
                   child: HeaderCard(
                     width: width,
                     icon: '${widget.icon}',
@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
                     weather: '${widget.weather}',
                   ),
                 ),
-                Expanded(flex: 7, child: allCard(width: width)),
+                Expanded(flex: 3                                                                                                                                                                                                 , child: allCard(width: width)),
               ]),
             ),
           ),

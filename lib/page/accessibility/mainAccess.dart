@@ -117,13 +117,13 @@ class RoomWidget extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(15),
                   child: SizedBox(
-                    height: width * 0.2,
-                    width: width * 0.2,
+                    height: width * 0.18,
+                    width: width * 0.18,
                     child: Container(
                         color: primary,
                         child: const Icon(
                           Ionicons.bulb,
-                          size: 50,
+                          size: 40,
                           color: Colors.white,
                         )),
                   ),

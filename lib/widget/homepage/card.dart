@@ -68,7 +68,7 @@ class _HeaderCardState extends State<HeaderCard> {
         "http://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=$apiKey&units=metric";
     http.Response response = await http.get(Uri.parse(apiUrl));
     var result = jsonDecode(response.body);
-    setState(() {
+    setState (() {
       temp = result['main']['temp'];
       weather = result['weather'][0]['main'];
       icon = result['weather'][0]['icon'];
@@ -207,12 +207,12 @@ class _cardDeviceBoardState extends State<cardDeviceBoard> {
       ),
       elevation: 10,
       child: AnimatedContainer(
-        decoration: BoxDecoration(
-            color: widget.varType ? primary : secondary,
+        decoration: const BoxDecoration(
+            color: secondary,
             borderRadius: const BorderRadius.all(Radius.circular(20))),
         duration: const Duration(milliseconds: 400),
         child: SizedBox(
-          height: widget.width / 2.35,
+          height: widget.width / 3,
           width: widget.width / 2.35,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16),
@@ -223,14 +223,36 @@ class _cardDeviceBoardState extends State<cardDeviceBoard> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CircleAvatar(
-                        radius: 23,
-                        backgroundColor:
-                            widget.varType ? Colors.white : primary,
-                        child: Icon(
-                          widget.iconData,
-                          color: widget.varType ? highlight : Colors.white,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CircleAvatar(
+                            radius: 22,
+                            backgroundColor:
+                                widget.varType ? highlight : primary,
+                            child: Icon(
+                              widget.iconData,
+                              color: Colors.white,
+                            ),
+                          ),
+                          RotatedBox(
+                            quarterTurns: 1,
+                            child: FlutterSwitch(
+                              activeToggleColor: highlight,
+                              toggleColor: primary,
+                              activeColor: bgWhite,
+                              inactiveColor: bgWhite,
+                              width: widget.width * 0.11,
+                              height: widget.width * 0.07,
+                              value: widget.varType,
+                              onToggle: (value) {
+                                setState(() {
+                                  widget.varType = value;
+                                });
+                              },
+                            ),
+                          )
+                        ],
                       ),
                       const SizedBox(
                         height: 10,
@@ -242,31 +264,13 @@ class _cardDeviceBoardState extends State<cardDeviceBoard> {
                       Text(
                         "${widget.deviceValue}",
                         style: GoogleFonts.inter(
-                            color: widget.varType ? Colors.white : primary,
+                            color: widget.varType ? highlight : primary,
                             fontSize: 12,
-                            fontWeight: FontWeight.w400),
+                            fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      FlutterSwitch(
-                        activeToggleColor: highlight,
-                        toggleColor: secondary,
-                        activeColor: Colors.white,
-                        inactiveColor: Colors.white,
-                        width: widget.width / 7.5,
-                        height: widget.width * 0.08,
-                        value: widget.varType,
-                        onToggle: (value) {
-                          setState(() {
-                            widget.varType = value;
-                          });
-                        },
-                      )
-                    ],
-                  )
+                  //
                 ]),
           ),
         ),
@@ -356,92 +360,84 @@ class _allCardState extends State<allCard> {
           ],
         ),
       ),
-      Expanded(
-          flex: 2,
-          child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  height: 15,
-                ),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InkWell(
-                          onTap: () {
-                            setState(() {
-                              curtain = !curtain;
-                            });
-                          },
-                          child: cardDeviceBoard(
-                            deviceType: "Smart Curtain",
-                            deviceValue: "2 Devices",
-                            width: widget.width,
-                            varType: curtain,
-                            iconData: Icons.curtains_closed_rounded,
-                          )),
-                      InkWell(
-                          onTap: () {
-                            setState(() {
-                              switchs = !switchs;
-                            });
-                          },
-                          child: cardDeviceBoard(
-                            deviceType: "Smart Switchs",
-                            deviceValue: "4 Devices",
-                            width: widget.width,
-                            varType: switchs,
-                            iconData: Ionicons.toggle,
-                          )),
-                    ]),
-              ],
+      Container(
+        margin: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(
+              height: 15,
             ),
-          )),
-      Expanded(
-          flex: 2,
-          child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  height: 15,
-                ),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InkWell(
-                          onTap: () {
-                            setState(() {
-                              audio = !audio;
-                            });
-                          },
-                          child: cardDeviceBoard(
-                            deviceType: "Smart Audio",
-                            deviceValue: "2 Devices",
-                            width: widget.width,
-                            varType: audio,
-                            iconData: Ionicons.musical_notes,
-                          )),
-                      InkWell(
-                          onTap: () {
-                            setState(() {
-                              board = !board;
-                            });
-                          },
-                          child: cardDeviceBoard(
-                            deviceType: "Smart Board",
-                            deviceValue: "1 Devices",
-                            width: widget.width,
-                            varType: board,
-                            iconData: Ionicons.tv,
-                          )),
-                    ]),
-              ],
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              InkWell(
+                  onTap: () {
+                    setState(() {
+                      curtain = !curtain;
+                    });
+                  },
+                  child: cardDeviceBoard(
+                    deviceType: "Smart Curtain",
+                    deviceValue: "2 Devices",
+                    width: widget.width,
+                    varType: curtain,
+                    iconData: Icons.curtains_closed_rounded,
+                  )),
+              InkWell(
+                  onTap: () {
+                    setState(() {
+                      switchs = !switchs;
+                    });
+                  },
+                  child: cardDeviceBoard(
+                    deviceType: "Smart Switchs",
+                    deviceValue: "4 Devices",
+                    width: widget.width,
+                    varType: switchs,
+                    iconData: Ionicons.toggle,
+                  )),
+            ]),
+          ],
+        ),
+      ),
+      Container(
+        margin: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(
+              height: 15,
             ),
-          )),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              InkWell(
+                  onTap: () {
+                    setState(() {
+                      audio = !audio;
+                    });
+                  },
+                  child: cardDeviceBoard(
+                    deviceType: "Smart Audio",
+                    deviceValue: "2 Devices",
+                    width: widget.width,
+                    varType: audio,
+                    iconData: Ionicons.musical_notes,
+                  )),
+              InkWell(
+                  onTap: () {
+                    setState(() {
+                      board = !board;
+                    });
+                  },
+                  child: cardDeviceBoard(
+                    deviceType: "Smart Board",
+                    deviceValue: "1 Devices",
+                    width: widget.width,
+                    varType: board,
+                    iconData: Ionicons.tv,
+                  )),
+            ]),
+          ],
+        ),
+      ),
       const SizedBox(
         height: 50,
       )
