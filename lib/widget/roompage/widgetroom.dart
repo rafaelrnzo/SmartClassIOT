@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_smartclass/global/color.dart';
+import 'package:flutter_smartclass/global/textstyle.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ionicons/ionicons.dart';
 
 class CircleList extends StatelessWidget {
   String title;
@@ -14,7 +16,7 @@ class CircleList extends StatelessWidget {
     required this.title,
     required this.onTap,
     required this.icon,
-    this.color = secondary,
+    this.color = bgWhite,
     this.iconColor = primary,
     this.isSelected = false,
   }) : super(key: key);
@@ -36,25 +38,32 @@ class CircleList extends StatelessWidget {
         children: [
           InkWell(
             onTap: onTap,
-            child: Container(
-              width: MediaQuery.of(context).size.width / 5,
-              height: MediaQuery.of(context).size.height / 11,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: isSelected ? primary : secondary,
-              ),
-              child: Center(
-                child: Icon(
-                  icon,
-                  size: 34,
-                  color: isSelected ? highlight : primary,
+            child: Transform.scale(
+              scale: 0.9,
+              child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 400),
+
+                child: Container(
+                  width: MediaQuery.of(context).size.width / 5,
+                  height: MediaQuery.of(context).size.height / 11,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: isSelected ? primary : bgWhite,
+                  ),
+                  child: Center(
+                    child: Icon(
+                      icon,
+                      size: 34,
+                      color: isSelected ? highlight : primary,
+                    ),
+                  ),
                 ),
               ),
             ),
           ),
           Text(
             title,
-            style: TextStyle(color: Colors.black),
+            style: bold15Prim(),
           ),
         ],
       ),
@@ -78,7 +87,7 @@ class CardDevice extends StatelessWidget {
       required this.onTap,
       required this.leadingButton,
       this.iconColor = secondary,
-      this.statsColor = Colors.grey})
+      this.statsColor = primary50})
       : super(key: key);
 
   @override
@@ -100,8 +109,8 @@ class CardDevice extends StatelessWidget {
                   Container(
                       height: MediaQuery.of(context).size.height / 12,
                       width: MediaQuery.of(context).size.width / 6,
-                      decoration: BoxDecoration(
-                          color: iconColor,
+                      decoration: const BoxDecoration(
+                          color: bgWhite,
                           borderRadius:
                               const BorderRadius.all(Radius.circular(20))),
                       child: Icon(
@@ -141,3 +150,103 @@ class CardDevice extends StatelessWidget {
     );
   }
 }
+
+class RoomWidget extends StatelessWidget {
+  final VoidCallback onTap;
+  final String status;
+  final String roomName;
+  final String totalDevice;
+  final IconData icon;
+  const RoomWidget({
+    Key? key,
+    required this.width,
+    required this.onTap,
+    required this.status,
+    required this.roomName,
+    required this.totalDevice,
+    required this.icon,
+  }) : super(key: key);
+
+  final double width;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 15),
+      child: InkWell(
+        onTap: onTap,
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: SizedBox(
+                        height: width * 0.2,
+                        width: width * 0.2,
+                        child: Container(
+                          color: primary,
+                          child: Icon(
+                            icon,
+                            size: 36.0,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                              status,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: med14prim50(),
+                            ),
+                          ],
+                        ),
+                        Text(
+                          roomName,
+                          style: bold20Prim(),
+                        ),
+                        Container(
+                          width: 50,
+                          height: 25,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(7),
+                            color: primary,
+                          ),
+                          child: Center(
+                              child: Text(
+                            totalDevice,
+                            style: bold16White(),
+                          )),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const Icon(
+                  Ionicons.chevron_forward,
+                  size: 35,
+                )
+              ],
+            ),
+            // const SizedBox(height: 20,)
+          ],
+          
+        ),
+      ),
+    );
+  }
+}
+

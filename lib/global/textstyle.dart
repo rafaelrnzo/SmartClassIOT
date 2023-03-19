@@ -33,6 +33,15 @@ TextStyle bold16Highlight() {
   return GoogleFonts.inter(
       color: highlight, fontSize: 16, fontWeight: FontWeight.bold);
 }
+TextStyle med14Prim() {
+  return GoogleFonts.inter(
+      color: secondary, fontSize: 14, fontWeight: FontWeight.bold);
+}
+
+TextStyle bold15Highlight() {
+  return GoogleFonts.inter(
+      color: highlight, fontSize: 15, fontWeight: FontWeight.bold);
+}
 
 TextStyle med12Sec() {
   return GoogleFonts.inter(
@@ -63,6 +72,12 @@ TextStyle bold16Prim() {
   return GoogleFonts.inter(
       color: primary, fontSize: 16, fontWeight: FontWeight.bold);
 }
+
+TextStyle bold15Prim() {
+  return GoogleFonts.inter(
+      color: primary, fontSize: 15, fontWeight: FontWeight.bold);
+}
+
 TextStyle med16Prim() {
   return GoogleFonts.inter(
       color: primary, fontSize: 16, fontWeight: FontWeight.normal);

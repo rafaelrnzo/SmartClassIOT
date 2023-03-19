@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_smartclass/global/color.dart';
 import 'package:flutter_smartclass/global/textstyle.dart';
 import 'package:flutter_smartclass/mainNavigation.dart';
-import 'package:flutter_smartclass/page/home/mainHome.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -20,13 +19,14 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: secondary,
+      backgroundColor: bgWhite,
       body: Form(
         key: _formKey,
         child: Center(
           child: Card(
-            elevation: 8,
+            elevation: 20,
             child: Container(
+              color: secondary,
               padding: const EdgeInsets.all(32.0),
               constraints: const BoxConstraints(maxWidth: 350),
               child: SingleChildScrollView(
@@ -34,22 +34,21 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const FlutterLogo(size: 100),
+                    Image.network(
+                      "https://cdn-icons-png.flaticon.com/512/5674/5674340.png",
+                      width: 130.0,
+                      height: 130.0,
+                      fit: BoxFit.cover,
+                    ),
                     _gap(),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 0.0),
                       child: Text(
-                        "Welcome to SmartClass !",
+                        "Welcome to SmartLearning!",
                         style: bold20Prim(),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Text(
-                        "Enter your email and password to continue.",
-                        style: med12prim50()
-                      ),
-                    ),
+                    _gap(),
                     _gap(),
                     TextFormField(
                       validator: (value) {
@@ -104,19 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                           )),
                     ),
                     _gap(),
-                    CheckboxListTile(
-                      value: _rememberMe,
-                      onChanged: (value) {
-                        if (value == null) return;
-                        setState(() {
-                          _rememberMe = value;
-                        });
-                      },
-                      title:  Text('Remember me',style: med14prim50(),),
-                      controlAffinity: ListTileControlAffinity.leading,
-                      dense: true,
-                      contentPadding: const EdgeInsets.all(0),
-                    ),
+                    
                     _gap(),
                     SizedBox(
                       width: double.infinity,
@@ -126,8 +113,8 @@ class _LoginPageState extends State<LoginPage> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(4)),
                         ),
-                        child:  Padding(
-                          padding: EdgeInsets.all(10.0),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
                           child: Text(
                             'Sign in',
                             style: bold16White(),
@@ -140,7 +127,9 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const NavigationPage()),
+                                builder: (context) => const NavigationPage(
+                                      uuid: '',
+                                    )),
                           );
                         },
                       ),

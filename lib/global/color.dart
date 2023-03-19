@@ -8,8 +8,8 @@ const Color highlight = Color.fromRGBO(20, 124, 218, 1);
 const Color bgWhite = Color.fromRGBO(238, 238, 238,1)	;
 const Color secondary = Color.fromRGBO(255, 255, 255, 1)	;
 
-const Color secondary60 = Color.fromRGBO(214, 228, 240, 0.6);
-const Color primary50 = Color.fromRGBO(30, 86, 160,0.5);
+const Color secondary60 = Color.fromRGBO(214, 228, 240, 0.8);
+const Color primary50 = Color.fromRGBO(18, 40, 61, 0.5);
 const Color highlight2 = Color.fromRGBO(210, 4, 253, 1);
 
 LinearGradient LinearColor() {

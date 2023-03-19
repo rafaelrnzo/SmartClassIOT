@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_smartclass/global/color.dart';
 import 'package:flutter_smartclass/global/textstyle.dart';
-import 'package:flutter_smartclass/page/profile/mainProfile.dart';
+import 'package:flutter_smartclass/screens/profile/mainProfile.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 AppBar homeAppbar(context) {
   return AppBar(
     toolbarHeight: 80,
-    backgroundColor: Colors.transparent,
+    backgroundColor: secondary,
     elevation: 0,
     title: ShaderMask(
       blendMode: BlendMode.srcIn,
@@ -29,7 +29,7 @@ AppBar homeAppbar(context) {
         ),
         child: CircleAvatar(
           radius: 20,
-          backgroundColor: secondary,
+          backgroundColor: bgWhite,
           child: IconButton(
             icon: const Icon(
               Icons.person_rounded,
@@ -57,6 +57,18 @@ AppBar accesAppbar() {
     title: Text(
         'Accesibility',
         style: bold24Prim()
+      ),
+    
+  );
+}
+AppBar kwhAppbar() {
+  return AppBar(
+    toolbarHeight: 80,
+    backgroundColor: Colors.transparent,
+    elevation: 0,
+    title: Text(
+        'KwH Monitoring',
+        style: bold20Prim()
       ),
     
   );
