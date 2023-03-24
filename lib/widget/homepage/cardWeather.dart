@@ -90,12 +90,12 @@ class _HeaderCardState extends State<HeaderCard> {
   Widget build(BuildContext context) {
     return Container(
       width: widget.width,
-      margin: const EdgeInsets.symmetric(horizontal: 16),
+      margin: const EdgeInsets.symmetric(horizontal: 16,),
       child: isLoading
           ? Card(
               elevation: 20,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(25),
               ),
               color: primary,
               child: Container(

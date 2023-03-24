@@ -52,7 +52,7 @@ class _RoomPageState extends State<RoomPage> {
   ];
 
   void fetchApi() async {
-    String apiUrl = 'http://smartlearning.solusi-rnd.tech/api/data-features';
+    String apiUrl = 'http://smartlearning.solusi-rnd.tech/api/features';
     http.Response response = await http.get(Uri.parse(apiUrl));
     var result = jsonDecode(response.body);
     setState(() {

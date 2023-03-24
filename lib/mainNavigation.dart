@@ -7,6 +7,7 @@ import 'package:flutter_smartclass/global/color.dart';
 import 'package:flutter_smartclass/model/feature.dart';
 import 'package:flutter_smartclass/model/modelRoom.dart';
 import 'package:flutter_smartclass/screens/accessibility/mainAccess.dart';
+import 'package:flutter_smartclass/screens/accessibility/room/audioPage.dart';
 import 'package:flutter_smartclass/screens/home/mainHome.dart';
 import 'package:flutter_smartclass/screens/kwhMonitoring/mainMonitoring.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -47,7 +48,7 @@ class _NavigationPageState extends State<NavigationPage> {
   Future<void> _fetchDataClass() async {
     try {
       final response = await http.get(
-        Uri.parse('http://smartlearning.solusi-rnd.tech/api/data-rooms'),
+        Uri.parse('http://smartlearning.solusi-rnd.tech/api/rooms'),
       );
       setState(() {
         List<dynamic> jsonRooms = jsonDecode(response.body);
@@ -59,7 +60,7 @@ class _NavigationPageState extends State<NavigationPage> {
         screens = [
           if (_classData.isNotEmpty) HomePage(uuid: _classData[0]['uuid']),
           const AccessPage(),
-           MonitoringPage(),
+           ChartApp(),
         ];
       });
     } catch (e) {
@@ -70,7 +71,7 @@ class _NavigationPageState extends State<NavigationPage> {
   Future<void> _fetchDataFeatures() async {
     try {
       final response = await http.get(
-        Uri.parse('http://smartlearning.solusi-rnd.tech/api/data-features'),
+        Uri.parse('http://smartlearning.solusi-rnd.tech/api/features'),
       );
       setState(() {
         List<dynamic> jsonFeatures = jsonDecode(response.body);
@@ -91,7 +92,7 @@ class _NavigationPageState extends State<NavigationPage> {
             "name_feature: $selectedFeature, id_room: $select, name_device: $nameDevice, topic: $topic, active: $active, inactive: $inactive");
         final response = await http.post(
             Uri.parse(
-                "http://smartlearning.solusi-rnd.tech/api/store-devices/"),
+                "http://smartlearning.solusi-rnd.tech/api/devices/"),
             headers: {'Content-Type': 'application/json'},
             body: jsonEncode({
               "name_feature": selectedFeature,

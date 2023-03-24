@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_smartclass/global/color.dart';
+import 'package:flutter_smartclass/widget/widgetAppbar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AudioPage extends StatefulWidget {
@@ -15,35 +16,10 @@ class _AudioPageState extends State<AudioPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Audio",
-          style: GoogleFonts.inter(color: primary),
-        ),
-        leading: BackButton(color: primary),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        actions: const [],
-      ),
+      appBar: audioAppbar(),
       body: Column(
         children: [
-          Expanded(
-              child: Container(
-            child: Column(children: []),
-          )),
-          Expanded(
-              child: Container(
-            child: Column(children: []),
-          )),
-          Expanded(
-              child: Container(
-            child: Column(children: []),
-          )),
-          Expanded(
-              child: Container(
-            child: Column(children: []),
-          )),
+          
         ],
       ),
     );

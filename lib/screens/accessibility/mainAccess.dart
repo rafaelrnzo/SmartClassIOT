@@ -33,10 +33,10 @@ class _AccessPageState extends State<AccessPage> {
   }
 
   void fetchApi() async {
-    String apiUrl = 'http://smartlearning.solusi-rnd.tech/api/data-rooms';
+    String apiUrl = 'http://smartlearning.solusi-rnd.tech/api/rooms';
     http.Response response = await http.get(Uri.parse(apiUrl));
     var result = jsonDecode(response.body);
-    setState(() {
+     setState(() {
       isLoadingAcs = true;
       cardRoom = jsonDecode(response.body);
     });

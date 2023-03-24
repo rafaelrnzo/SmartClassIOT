@@ -88,6 +88,20 @@ AppBar roomAppbar() {
     
   );
 }
+AppBar audioAppbar() {
+  return AppBar(
+    leading: const BackButton(color: primary),
+    toolbarHeight: 80,
+    backgroundColor: Colors.transparent,
+    elevation: 0,
+    centerTitle: true,
+    title: Text(
+        'Audio',
+        style: bold20Prim()
+      ),
+    
+  );
+}
 AppBar acAppbar() {
   return AppBar(
     leading: BackButton(color: primary),

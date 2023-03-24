@@ -83,7 +83,7 @@ class DegreeShimmer extends StatelessWidget {
       child: Shimmer.fromColors(
           baseColor: Color(0xFFEBEBF4),
           highlightColor: Color(0xFFF4F4F4),
-          child: ShimmerWidget(width: width, height: width / 5, radius: 20)),
+          child: ShimmerWidget(width: width, height: width / 2 , radius: 20)),
     );
   }
 }

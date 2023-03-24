@@ -38,7 +38,7 @@ class _allCardState extends State<allCard> {
 
   Future<List<Room>> fetchApiRoom() async {
     final response = await http
-        .get(Uri.parse('http://smartlearning.solusi-rnd.tech/api/data-rooms'));
+        .get(Uri.parse('http://smartlearning.solusi-rnd.tech/api/rooms'));
     if (response.statusCode == 200) {
       List<dynamic> body = jsonDecode(response.body);
       List<Room> rooms = body.map((room) => Room.fromJson(room)).toList();
@@ -66,7 +66,7 @@ class _allCardState extends State<allCard> {
   }
 
   void fetchApiRooms() async {
-    String apiUrl = 'http://smartlearning.solusi-rnd.tech/api/data-rooms';
+    String apiUrl = 'http://smartlearning.solusi-rnd.tech/api/rooms';
     http.Response response = await http.get(Uri.parse(apiUrl));
     var result = jsonDecode(response.body);
     setState(() {
@@ -80,7 +80,7 @@ class _allCardState extends State<allCard> {
   }
 
   void fetchApiFeature() async {
-    String apiUrl = 'http://smartlearning.solusi-rnd.tech/api/data-features';
+    String apiUrl = 'http://smartlearning.solusi-rnd.tech/api/rooms';
     http.Response response = await http.get(Uri.parse(apiUrl));
     var result = jsonDecode(response.body);
     setState(() {
